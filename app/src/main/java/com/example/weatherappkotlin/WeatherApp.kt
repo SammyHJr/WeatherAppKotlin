@@ -39,18 +39,18 @@ fun WeatherApp() {
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            BigBox1()
+            DailyBox()
             Spacer(modifier = Modifier.height(20.dp))
-            SmallBox()
+            HourlyBox()
             Spacer(modifier = Modifier.height(8.dp))
-            BigBox2()
+            WeeklyBox()
         }
     }
 }
 
 
 @Composable
-fun BigBox1() {
+fun DailyBox() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -70,7 +70,7 @@ fun BigBox1() {
 
 
 @Composable
-fun SmallBox() {
+fun HourlyBox() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -90,7 +90,7 @@ fun SmallBox() {
 
 
 @Composable
-fun BigBox2() {
+fun WeeklyBox() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
