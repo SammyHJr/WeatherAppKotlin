@@ -33,3 +33,4 @@ data class HourlyWeather(
     val weather_code: List<Int>,
     val precipitation_probabalility: List<Int>
 )
+
