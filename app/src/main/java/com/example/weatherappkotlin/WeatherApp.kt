@@ -31,6 +31,13 @@ import com.example.weatherappkotlin.WeatherResponse
 
 @Composable
 fun WeatherApp() {
+    val viewModel: WeatherViewModel = viewModel()
+    val weatherState by viewModel.weatherData.collectAsState()
+
+    LaunchedEffect((Unit)) {
+        viewModel.fetchWeather(lat = 13.75, lon = 100.5)  // Bangkok
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -44,22 +51,24 @@ fun WeatherApp() {
             )
             .padding(30.dp)
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            DailyBox()
-            Spacer(modifier = Modifier.height(20.dp))
-            HourlyBox()
-            Spacer(modifier = Modifier.height(8.dp))
-            WeeklyBox()
-        }
+        weatherState?.let { weather ->
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                DailyBox(weather)
+                Spacer(modifier = Modifier.height(20.dp))
+                HourlyBox(weather)
+                Spacer(modifier = Modifier.height(8.dp))
+                HourlyBox(weather)
+            }
+        } ?: CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
     }
 }
 
 
 @Composable
-fun DailyBox() {
+fun DailyBox(weather: WeatherResponse) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -69,7 +78,7 @@ fun DailyBox() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Big Box 1",
+            text ="Current Temperature: ${weather.current.temperature_2m}°C",
             color = Color.Black,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold
@@ -79,7 +88,7 @@ fun DailyBox() {
 
 
 @Composable
-fun HourlyBox() {
+fun HourlyBox(weather: WeatherResponse) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -99,7 +108,7 @@ fun HourlyBox() {
 
 
 @Composable
-fun WeeklyBox() {
+fun WeeklyBox(weather: WeatherResponse) {
     Box(
         modifier = Modifier
             .fillMaxWidth()

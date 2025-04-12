@@ -14,6 +14,6 @@ class WeatherRepository {
     }
 
     suspend fun getWeather(lat: Double, lon: Double) : WeatherResponse {
-        return api.getWeather(lat, lon)
+        return api.getWeather(lat,lon)
     }
 }
